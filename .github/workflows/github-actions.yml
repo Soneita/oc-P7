@@ -1,0 +1,26 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.5
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to EC2
+        run: scp -i /Users/soneitaraherimalala/Desktop/oc-P7/key-pair.pem /Users/soneitaraherimalala/Desktop/P7/P7_script.py ubuntu@35.180.97.44:/home/ubuntu
+
+
+
+        # Write commands here to deploy your model to SageMaker using AWS CLI
