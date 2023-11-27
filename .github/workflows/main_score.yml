@@ -1,8 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-# More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
-
-name: Build and deploy Python app to Azure Web App - Score
+name: Build and deploy Python app to Azure Web App - stscore
 
 on:
   push:
@@ -20,7 +16,12 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
-          python-version: '3.8'
+          python-version: '3.x' # Spécifiez la version de Python souhaitée
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x' # Spécifiez la version de Node.js souhaitée
 
       - name: Create and start virtual environment
         run: |
@@ -62,6 +63,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'Score'
+          app-name: 'stscore'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D7EE8A48C8354A03908F10C28C939C68 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C34A9211CDEC45ED9876E8C58B358369 }}
+
