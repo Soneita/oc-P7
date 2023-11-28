@@ -34,10 +34,10 @@ import numpy as np
 app = Flask(__name__)
 
 #Chargez votre modèle XGBoost
-model = pickle.load(open('Soneita/oc-P7/data/xgb_model.pkl', 'rb'))
+model = pickle.load(open('/oc-P7/data/xgb_model.pkl', 'rb'))
 
 # Chargez votre dataframe
-df_select = pd.read_csv('Soneita/oc-P7/df_select.csv')
+df_select = pd.read_csv('/oc-P7/df_select.csv')
 print(df_select.columns)
 
 @app.route('/predict_score', methods=['POST'])
