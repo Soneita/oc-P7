@@ -34,7 +34,7 @@ import numpy as np
 app = Flask(__name__)
 
 #Chargez votre modèle XGBoost
-model = pickle.load(open('/Users/soneitaraherimalala/Desktop/P7/xgb_model.pkl', 'rb'))
+model = pickle.load(open('data/xgb_model.pkl', 'rb'))
 
 # Chargez votre dataframe
 df_select = pd.read_csv('/Users/soneitaraherimalala/Desktop/P7/df_select.csv')
