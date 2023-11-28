@@ -19,5 +19,4 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to EC2
-        run: scp -i /Users/soneitaraherimalala/Desktop/oc-P7/key-pair.pem /Users/soneitaraherimalala/Desktop/P7/P7_script.py ubuntu@35.180.97.44:/home/ubuntu
-
+        run: scp -i /Users/soneitaraherimalala/Desktop/oc-P7/key-pair.pem /Users/soneitaraherimalala/Desktop/P7/P7_script.py ubuntu@35.180
