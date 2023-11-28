@@ -33,9 +33,9 @@ def main():
     if selected_client_id:
 
         selected_client_id = int(selected_client_id)
-        if selected_client_id in df_select['index'].values:
+        if selected_client_id in df_select['SK_ID_CURR'].values:
             # Récupérez les informations du client en fonction du numéro du client
-            client_info = df_select[df_select['index'] == selected_client_id].iloc[0]
+            client_info = df_select[df_select['SK_ID_CURR'] == selected_client_id].iloc[0]
 
             # Affichez les détails du client
             st.subheader("Détails du client")
@@ -66,13 +66,13 @@ def main():
             # Vérifiez si la valeur du score n'est pas None et est de type numérique
             if predicted_score is not None and isinstance(predicted_score, (int, float)):
                 #Classez le client en fonction du score
-                if predicted_score < 0.1:
+                if predicted_score < 0.8:
                     st.write("Classe : 0 (Crédit accordé)")
                 else:
                     st.write("Classe : 1 (Crédit refusé)")
                     
             if predicted_score is not None and isinstance(predicted_score, (int, float)):
-                if predicted_score < 0.1:
+                if predicted_score < 0.8:
                     df_select['Classe'] = 0
                 else:
                     df_select['Classe'] = 1
@@ -98,19 +98,25 @@ def main():
             st.write(f"Seuil : {seuil}")
             # Calcul de l'importance locale avec SHAP
             st.subheader("Importance locale des features")
+            #shap.initjs() 
             X_numpy = df_select.to_numpy()
             explainer = shap.Explainer(model, X_numpy)
-            
+            numpy_index = df_select[df_select['SK_ID_CURR'] == selected_client_id].index.values[0]
+
+# Calculer les valeurs SHAP pour l'index spécifié dans X_numpy
+            shap_values = explainer.shap_values(X_numpy[numpy_index].reshape(1, -1))
+            shap.initjs() 
+# Créer le graphique SHAP pour la feature importance locale
+            shap.force_plot(explainer.expected_value, shap_values, df_select.iloc[numpy_index], feature_names=df_select.columns)
             # Calculez les valeurs SHAP pour le client sélectionné
-            shap_values = explainer.shap_values(X_numpy[selected_client_id].reshape(1, -1))
+            #shap_values = explainer.shap_values(X_numpy[selected_client_id].reshape(1, -1))
+            st_shap( shap.force_plot(explainer.expected_value, shap_values, df_select.iloc[numpy_index], feature_names=df_select.columns))
+            # Calculez les valeurs SHAP pour le client sélectionné
+            #shap_values = explainer.shap_values(X_numpy[selected_client_id].reshape(1, -1))
 
-            shap.initjs()  # Assurez-vous d'appeler cette fonction pour activer JavaScript pour les graphiques SHAP
+            #shap.initjs()  # Assurez-vous d'appeler cette fonction pour activer JavaScript pour les graphiques SHAP
             
-            # Créez le graphique SHAP
-            shap_force_plot = shap.force_plot(explainer.expected_value, shap_values, df_select.iloc[selected_client_id], feature_names=df_select.columns)
-
-            # Affichez le graphique SHAP dans Streamlit en utilisant st_shap
-            st_shap(shap.force_plot(explainer.expected_value, shap_values, df_select.iloc[selected_client_id], feature_names=df_select.columns), height=400, width=1000)
+         
             
             #Feature Importance globale
             st.subheader("Importance globale des features")
@@ -185,7 +191,7 @@ def main():
             fig3 = plt.figure(figsize=(8, 6))
 
             # Utilisez sns.scatterplot pour créer le graphique de dispersion avec une palette de couleurs
-            sns.scatterplot(data=df_select, x=feature1, y=feature2, hue='scores', palette='coolwarm', legend='full')
+            sns.scatterplot(data=df_select, x=feature1, y=feature2, palette='coolwarm', legend='full')
 
             # Affichez le graphique dans Streamlit
             st.pyplot(fig3)
@@ -199,9 +205,7 @@ def main():
      
 if __name__ == '__main__':
     main()
-#Assurez-vous que api_url contient l'URL correcte de votre API, qui devrait être celle que vous avez configurée pour l'endpoint /predict_credit_score. Lorsque l'utilisateur entre le numéro du client, vous envoyez une requête à l'API, récupérez la prédiction et l'affichez dans votre dashboard Streamlit.
-
-#N'oubliez pas de personnaliser davantage votre tableau de bord avec d'autres éléments et fonctionnalités selon vos besoins.
+#Assurez-vo
 
 
 
