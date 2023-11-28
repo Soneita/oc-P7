@@ -1,5 +1,5 @@
 absl-py==1.4.0
-alabaster @ file:///home/ktietz/src/ci/alabaster_1611921544520/work
+#alabaster @ file:///home/ktietz/src/ci/alabaster_1611921544520/work
 alembic==1.12.0
 altair==5.1.2
 anaconda-anon-usage @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_ca68ugx5h9/croot/anaconda-anon-usage_1697038938120/work
