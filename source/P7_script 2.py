@@ -17,7 +17,7 @@ from streamlit_shap import st_shap
 # Définir l'URL de votre API Flask
 api_url = 'http://127.0.0.1:5000/predict_score'
 #Chargez votre modèle XGBoost
-model = pickle.load(open('data/xgb_model.pkl', 'rb'))
+model = pickle.load(open('Soneita/oc-P7/data/xgb_model.pkl', 'rb'))
 def main():
     st.title('Dashboard')
     
