@@ -12,7 +12,7 @@ import requests
 import json
   
 #app = Flask(__name__)
-#model = pickle.load(open('/Users/soneitaraherimalala/xgb1_model.pkl', 'rb'))
+#model = pickle.load(open('data/xgb_model.pkl', 'rb'))
 
 #@app.route('/predict', methods=['POST'])
 #def predict_credit_score():
@@ -37,7 +37,7 @@ app = Flask(__name__)
 model = pickle.load(open('data/xgb_model.pkl', 'rb'))
 
 # Chargez votre dataframe
-df_select = pd.read_csv('/Users/soneitaraherimalala/Desktop/P7/df_select.csv')
+df_select = pd.read_csv('df_select.csv')
 print(df_select.columns)
 
 @app.route('/predict_score', methods=['POST'])
