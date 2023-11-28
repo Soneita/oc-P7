@@ -12,7 +12,7 @@ import requests
 import json
   
 #app = Flask(__name__)
-#model = pickle.load(open('data/xgb_model.pkl', 'rb'))
+#model = pickle.load(open('/home/ubuntu/oc-P7/data/xgb_model.pkl', 'rb'))
 
 #@app.route('/predict', methods=['POST'])
 #def predict_credit_score():
@@ -34,7 +34,7 @@ import numpy as np
 app = Flask(__name__)
 
 #Chargez votre modèle XGBoost
-model = pickle.load(open('/oc-P7/data/xgb_model.pkl', 'rb'))
+model = pickle.load(open('/home/ubuntu/oc-P7/data/xgb_model.pkl', 'rb'))
 
 # Chargez votre dataframe
 df_select = pd.read_csv('/oc-P7/df_select.csv')
