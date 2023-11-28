@@ -22,7 +22,7 @@ def main():
     st.title('Dashboard')
     
     # Charger le DataFrame contenant les informations des clients
-    df_select = pd.read_csv('/Users/soneitaraherimalala/Desktop/P7/df_select.csv')
+    df_select = pd.read_csv('df_select.csv')
     #st.subheader(df_filled)
 
     # Demandez à l'utilisateur de taper le numéro du client
