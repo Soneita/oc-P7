@@ -17,12 +17,12 @@ from streamlit_shap import st_shap
 # Définir l'URL de votre API Flask
 api_url = 'http://127.0.0.1:5000/predict_score'
 #Chargez votre modèle XGBoost
-model = pickle.load(open('/Users/soneitaraherimalala/Desktop/P7/xgb_model.pkl', 'rb'))
+model = pickle.load(open('/home/ubuntu/oc-P7/data/xgb_model.pkl', 'rb'))
 def main():
     st.title('Dashboard')
     
     # Charger le DataFrame contenant les informations des clients
-    df_select = pd.read_csv('/Users/soneitaraherimalala/Desktop/P7/df_select.csv')
+    df_select = pd.read_csv('/home/ubuntu/oc-P7/df_select.csv')
     #st.subheader(df_filled)
 
     # Demandez à l'utilisateur de taper le numéro du client
@@ -205,8 +205,9 @@ def main():
      
 if __name__ == '__main__':
     main()
-#Assurez-vo
+#Assurez-vous que api_url contient l'URL correcte de votre API, qui devrait être celle que vous avez configurée pour l'endpoint /predict_credit_score. Lorsque l'utilisateur entre le numéro du client, vous envoyez une requête à l'API, récupérez la prédiction et l'affichez dans votre dashboard Streamlit.
 
+#N'oubliez pas de personnaliser davantage votre tableau de bord avec d'autres éléments et fonctionnalités selon vos besoins.
 
 
 
