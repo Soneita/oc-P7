@@ -37,7 +37,7 @@ app = Flask(__name__)
 model = pickle.load(open('/home/ubuntu/oc-P7/data/xgb_model.pkl', 'rb'))
 
 # Chargez votre dataframe
-df_select = pd.read_csv('/Users/soneitaraherimalala/Desktop/P7/df_select.csv')
+df_select = pd.read_csv('/home/ubuntu/oc-P7df_select.csv')
 print(df_select.columns)
 
 @app.route('/predict_score', methods=['POST'])
