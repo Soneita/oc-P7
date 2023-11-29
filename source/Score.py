@@ -63,7 +63,7 @@ def predict_score():
             return jsonify({'error': 'SK_ID_CURR not found'})
 
 # Utilisez les données sélectionnées pour la prédiction
-        y_pred_classes = model.predict_proba(client)[:, 1]  # Obtenez la probabilité de la classe positive
+        y_pred_classes = model.predict_proba(client.values)[:, 1]  # Obtenez la probabilité de la classe positive
 
 # Convertissez le tableau NumPy en une liste Python avant de le renvoyer dans la réponse JSON
         y_pred_classes_list = y_pred_classes.tolist()
