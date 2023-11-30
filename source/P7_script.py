@@ -194,7 +194,7 @@ def main():
             #df_select['score'] = prediction_list # R
             #df_select['scores'] = model.predict(df_select[df_select.columns[:-1]])
             # Utilisez plt.figure() pour créer la figure
-            fig3,ax = plt.fsubplots(figsize=(8, 6))
+            fig3,ax = plt.subplots(figsize=(8, 6))
 
             # Utilisez sns.scatterplot pour créer le graphique de dispersion avec une palette de couleurs
             #sns.scatterplot(data=df_select, x=feature1, y=feature2, palette='coolwarm', legend='full')
