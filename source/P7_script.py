@@ -189,7 +189,7 @@ def main():
             model_features = model.get_booster().feature_names
 
 # Réarrangez les colonnes de df_select pour correspondre à l'ordre du modèle
-            df_select = df_select[model_features]
+            df_select = df_select[model_features.values]
 
             #df_select['score'] = prediction_list # R
             #df_select['scores'] = model.predict(df_select[df_select.columns[:-1]])
@@ -197,8 +197,8 @@ def main():
             fig3,ax = plt.fsubplots(figsize=(8, 6))
 
             # Utilisez sns.scatterplot pour créer le graphique de dispersion avec une palette de couleurs
-            sns.scatterplot(data=df_select, x=feature1, y=feature2, palette='coolwarm', legend='full')
-            fig, ax = plt.subplots()
+            #sns.scatterplot(data=df_select, x=feature1, y=feature2, palette='coolwarm', legend='full')
+            #fig, ax = plt.subplots()
             sns.scatterplot(data=df_select, x=feature1, y=feature2, ax=ax)
             ax.set_xlabel(feature1)
             ax.set_ylabel(feature2)
