@@ -189,7 +189,7 @@ def main():
             model_features = model.get_booster().feature_names
 
 # Réarrangez les colonnes de df_select pour correspondre à l'ordre du modèle
-            df_select = df_select[model_features.values]
+            df_select = df_select[model_features]
 
             #df_select['score'] = prediction_list # R
             #df_select['scores'] = model.predict(df_select[df_select.columns[:-1]])
