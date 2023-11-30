@@ -186,7 +186,7 @@ def main():
             # Affichez un graphique de dispersion (scatter plot) entre feature1 et feature2
             st.subheader(f"Analyse bivariée entre {feature1} et {feature2}")
             #df_select['score'] = prediction_list # R
-            df_select['scores'] = model.predict(df_select[df_select.columns[:-1]])
+            #df_select['scores'] = model.predict(df_select[df_select.columns[:-1]])
             # Utilisez plt.figure() pour créer la figure
             fig3 = plt.figure(figsize=(8, 6))
 
