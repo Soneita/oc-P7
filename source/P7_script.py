@@ -185,6 +185,12 @@ def main():
             st.write(f"Vous avez sélectionné la valeur {selected_value2} pour {feature2}")
             # Affichez un graphique de dispersion (scatter plot) entre feature1 et feature2
             st.subheader(f"Analyse bivariée entre {feature1} et {feature2}")
+            # Obtenez les colonnes utilisées lors de l'entraînement du modèle
+            model_features = model.get_booster().feature_names
+
+# Réarrangez les colonnes de df_select pour correspondre à l'ordre du modèle
+            df_select = df_select[model_features]
+
             #df_select['score'] = prediction_list # R
             #df_select['scores'] = model.predict(df_select[df_select.columns[:-1]])
             # Utilisez plt.figure() pour créer la figure
