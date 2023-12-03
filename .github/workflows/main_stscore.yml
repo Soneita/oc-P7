@@ -20,7 +20,8 @@ jobs:
 
     - name: Copy files to EC2
       run: |
-          ssh  -vvv -i  ../../oc-P7linux.pem ubuntu@35.180.190.64 'ls -al'
+          ls -al
+          #ssh  -vvv -i  ../../oc-P7linux.pem ubuntu@35.180.190.64 'ls -al'
           #rsync -avz  --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
     
     - name: Deploy on EC2
