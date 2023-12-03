@@ -22,6 +22,10 @@ jobs:
 
     - name: Copy files to EC2
       run: |
+          chmod 600 ~/.ssh/id_rsa
+          cat ~/.ssh/id_rsa
+          chmod 644 ~/.ssh/known_hosts
+          cat ~/.ssh/known_hosts
           rsync -avz  --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
       env:
         SSH_PRIVATE-KEY: ${{ secrets.OC_P7 }}
