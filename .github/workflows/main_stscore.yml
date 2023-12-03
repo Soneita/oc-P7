@@ -12,25 +12,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    
-    - name: install ssh key
-      uses: shimataro/ssh-key-action@v2
+
+    - name: Set up SSH agent
+      uses: webfactory/ssh-agent@v0.5.5
       with:
-        key: ${{ secrets.OC_P7 }}
-        known_hosts: 35.180.190.64
-        config: |                                         # will be appended to existing .ssh/config
-          Host 35.180.190.64
-            HostName 35.180.190.64
-            User ubuntu
-            IdentityFile ~/.ssh/id_rsa
+        ssh-private-key: ${{ secrets.OC_P7 }}
 
     - name: Copy files to EC2
       run: |
           chmod 600 ~/.ssh/id_rsa
           cat ~/.ssh/id_rsa
-          chmod 644 ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
-          rsync -avz  --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ github.com@35.180.190.64:/home/ubuntu/deploy
+          rsync -avz  --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
     
     - name: Deploy on EC2
       run: |
