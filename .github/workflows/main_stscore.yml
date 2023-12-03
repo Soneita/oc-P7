@@ -18,7 +18,11 @@ jobs:
       with:
         key: ${{ secrets.OC_P7 }}
         known_hosts: 35.180.190.64
-
+        config: |                                         # will be appended to existing .ssh/config
+          Host 35.180.190.64
+            HostName 35.180.190.64
+            User ubuntu
+            IdentityFile ~/.ssh/id_rsa
 
     - name: Copy files to EC2
       run: |
