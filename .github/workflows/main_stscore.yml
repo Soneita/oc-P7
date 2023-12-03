@@ -14,18 +14,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up SSH agent
-      uses: webfactory/ssh-agent@v0.5.3
+      uses: webfactory/ssh-agent@v0.8.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-    - name: Create SSH Config
-      run: |
-          echo "Host aws-instance" >> $HOME/.ssh/config
-          echo "  HostName 35.180.190.64" >> $HOME/.ssh/config
-          echo "  User ubuntu" >> $HOME/.ssh/config
-          echo "  IdentityFile $HOME/.ssh/key-d081e29cd8bcf2290352fcd1b1a044946f83c4bc782c2dd4f3f4d990743fe636" >> $HOME/.ssh/config
-          chmod 600 $HOME/.ssh/config
-
 
     - name: Copy files to EC2
       run: |
