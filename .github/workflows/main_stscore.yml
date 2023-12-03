@@ -13,12 +13,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Setup SSH
+        uses: webfactory/ssh-key-action@v2
+        with:
+        ssh-private-key: ${{ secrets.oc_p7 }}
 
     - name: Copy files to EC2
       run: |
-        chmod 600 oc-P7linux.pem
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i oc-P7linux.pem " --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
+        rsync -avz  --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
 
     - name: Deploy on EC2
       run: |
-        ssh -i oc-P7linux.pem ubuntu@$35.180.190.64 'cd /home/ubuntu/deploy && ls -al'
+        ssh  ubuntu@$35.180.190.64 'cd /home/ubuntu/deploy && ls -al'
