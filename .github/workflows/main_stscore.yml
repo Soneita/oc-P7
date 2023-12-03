@@ -17,7 +17,7 @@ jobs:
       uses: shimataro/ssh-key-action@v2
       with:
         key: ${{secrets.OC_P7}}
-        known_hosts: '35.180.190.64'
+        known_hosts: 'github.com'
 
           #- name: adding known hosts
           # run: ssh-keyscan -H 35.180.190.64 >> ~/.ssh/known_hosts
