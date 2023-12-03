@@ -22,9 +22,9 @@ jobs:
           #- name: adding known hosts
           # run: ssh-keyscan -H 35.180.190.64 >> ~/.ssh/known_hosts
 
-    - name: Copy files to EC2
-      run: |
-        rsync -avz  --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
+          #    - name: Copy files to EC2
+          #run: |
+          #rsync -avz  --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
 
     - name: Deploy on EC2
       run: |
