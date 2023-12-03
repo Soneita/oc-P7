@@ -16,9 +16,9 @@ jobs:
 
     - name: Copy files to EC2
       run: |
-        rsync -avz -e "ssh -i ${{secrets.OC_P7}}" --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
+        rsync -avz -e "ssh -i oc-P7linux.pem " --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
 
     - name: Deploy on EC2
       run: |
-        ssh  -i ${{secrets.OC_P7}}ubuntu@$35.180.190.64 'cd /home/ubuntu/deploy && ls -al'
+        ssh  -i oc-P7linux.pem ubuntu@$35.180.190.64 'cd /home/ubuntu/deploy && ls -al'
 
