@@ -26,9 +26,9 @@ jobs:
           cat ~/.ssh/id_rsa
           chmod 644 ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
+          ssh-keyscan -t rsa 35.180.190.64 >> ~/.ssh/known_hosts
           #rsync -avz  --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
-      env:
-        SSH_PRIVATE-KEY: ${{ secrets.OC_P7 }}
+    
     - name: Deploy on EC2
       run: |
         ssh -i ~/.ssh/id_rsa ubuntu@35.180.190.64 'cd /home/ubuntu/deploy && ls -al'
