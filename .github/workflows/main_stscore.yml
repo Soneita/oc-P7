@@ -14,9 +14,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Setup SSH
-      uses: shimataro/ssh-key-action@v2
+      uses: webfactory/ssh-agent@v0.5.3
       with:
-        key: ${{ secrets.oc_p7 }}
+        ssh-private-key: ${{ secrets.oc_p7 }}
 
     - name: Copy files to EC2
       run: |
