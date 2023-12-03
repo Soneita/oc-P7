@@ -13,20 +13,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Setup SSH
-      run: 
-        mkdir -p ~/.ssh
-        touch ~/.ssh/id_rsa
-        echo "${{secrets.OC_P7}}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -t rsa 35.180.190.64 >> ~/.ssh/known_hosts
-        chmod 644 ~/.ssh/known_hosts
 
     - name: Copy files to EC2
       run: |
-        rsync -avz -e "ssh -i ~/.ssh/id_rsa" --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
+        rsync -avz -e "ssh -i ${{secrets.OC_P7}}" --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
 
     - name: Deploy on EC2
       run: |
-        ssh  ubuntu@$35.180.190.64 'cd /home/ubuntu/deploy && ls -al'
+        ssh  -i ${{secrets.OC_P7}}ubuntu@$35.180.190.64 'cd /home/ubuntu/deploy && ls -al'
 
