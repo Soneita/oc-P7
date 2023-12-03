@@ -26,6 +26,6 @@ jobs:
 
     - name: Deploy on EC2
       run: |
+        ssh  ubuntu@$35.180.190.64 'cd /home/ubuntu/deploy && ls -al'
       with:
         ssh-private-key: ${{ secrets.OC_P7 }}
-        ssh  ubuntu@$35.180.190.64 'cd /home/ubuntu/deploy && ls -al'
