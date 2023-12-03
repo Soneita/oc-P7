@@ -21,7 +21,11 @@ jobs:
     - name: Copy files to EC2
       run: |
         rsync -avz  --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
+      with:
+        ssh-private-key: ${{ secrets.OC_P7 }}
 
     - name: Deploy on EC2
       run: |
+      with:
+        ssh-private-key: ${{ secrets.OC_P7 }}
         ssh  ubuntu@$35.180.190.64 'cd /home/ubuntu/deploy && ls -al'
