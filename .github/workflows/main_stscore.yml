@@ -18,6 +18,15 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Create SSH Config
+      run: |
+          echo "Host aws-instance" >> $HOME/.ssh/config
+          echo "  35.180.190.64" >> $HOME/.ssh/config
+          echo "  ubuntu" >> $HOME/.ssh/config
+          echo "  IdentityFile $HOME/.ssh/id_rsa" >> $HOME/.ssh/config
+          chmod 600 $HOME/.ssh/config
+
+
     - name: Copy files to EC2
       run: |
           ssh -vvvv ubuntu@35.180.190.64
