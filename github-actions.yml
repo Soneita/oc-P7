@@ -20,6 +20,6 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          scp -i /dev/stdin /Users/soneitaraherimalala/Desktop/oc-P7/source/P7_script.py ubuntu@ip-172-31-39-83:/home/ubuntu/
+          scp -i /dev/stdin /Users/soneitaraherimalala/Desktop/oc-P7/source/P7_script.py ubuntu@ip-172-31-39-83:/home/ubuntu/oc-P7
 
 
