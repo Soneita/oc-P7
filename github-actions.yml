@@ -16,8 +16,10 @@ jobs:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.oc }}  # Utilisez le secret repository 'oc'
 
       - name: Deploy to EC2
-        run: scp -i /Users/soneitaraherimalala/Desktop/oc-P7/key-pair.pem /Users/soneitaraherimalala/Desktop/P7/P7_script.py ubuntu@35.180.97.44:/home/ubuntu
+        run: |
+          scp -i /dev/stdin /Users/soneitaraherimalala/Desktop/oc-P7/source/P7_script.py ubuntu@ip-172-31-39-83:/home/ubuntu/
+
 
