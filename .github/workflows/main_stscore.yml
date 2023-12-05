@@ -3,22 +3,30 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main
+      - main  # ou la branche de votre choix
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0
-        with:
-          ssh-private-key: ${{ secrets.oc }}  # Utilisez le secret repository 'oc'
+        # - name: Setup SSH
+        #uses: webfactory/ssh-agent@v0.5.3
+        #with:
+        #ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to EC2
-        run: |
-          scp -i /dev/stdin /Users/soneitaraherimalala/Desktop/oc-P7/source/P7_script.py ubuntu@ip-172-31-39-83:/home/ubuntu/oc-P7
+    - name: Copy files to EC2
+      run: |
+        # rsync -avz --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env' "ssh -i test.pem" ./ ubuntu@35.180.190.64:/home/ubuntu/oc-P7/source
+        # rsync -avz --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env' "ssh -i test.pem" ./ ubuntu@${{ secrets.EC2_IP }}:/home/ubuntu/oc-P7/source
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i oc-P7linux.pem " --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy
+
+    - name: Deploy on EC2
+      run: |
+        # ssh -i test.pem ubuntu@${{ secrets.EC2_IP }} 'cd /home/ubuntu/oc-P7/source && ls -al'
+        ssh -i oc-P7linux.pem ubuntu@ip-172-31-39-83 'cd /home/ubuntu/deploy && ls -al'
+
 
