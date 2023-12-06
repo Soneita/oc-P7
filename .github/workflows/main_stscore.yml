@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd /Users/soneitaraherimalala/Desktop/oc-P7/source/P7_script.py
+            cd /home/ubuntu/oc-P7/source/P7_script.py
 
 
 
