@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.OC }}
           port: 22
           script: |
-             cd /home/ubuntu/oc-P7/source 
+             rsync -avz -e "ssh -o StrictHostKeyChecking=no -i oc-P7linux.pem " --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploy 
 
 
 
