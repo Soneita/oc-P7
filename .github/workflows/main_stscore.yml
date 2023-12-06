@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.OC }}
           port: 22
           script: |
-             cd /home/ubuntu/oc-P7/source/P7_script.py 
+             cd /home/ubuntu/oc-P7/source 
 
 
 
