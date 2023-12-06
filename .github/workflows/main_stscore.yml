@@ -19,7 +19,7 @@ jobs:
              chmod 700 ~/.ssh
              sudo apt-get update -y && sudo apt-get install rsync openssh-client
              eval $(ssh-agent -s)
-             echo -e "Host *\\n\\tStrictHostKeyChecking no\\n\\n" > ~/.ssh/config'
+             echo -e "Host *\\n\\tStrictHostKeyChecking no\\n\\n" > ~/.ssh/config
              sudo chmod 400 oc-P7linux.pem
              cat oc-P7linux.pem
              cat oc-P7linux.pem | ssh-add -
