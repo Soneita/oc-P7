@@ -17,16 +17,16 @@ jobs:
         run: |
              mkdir -p ~/.ssh
              chmod 700 ~/.ssh
-             apt-get update -y && apt-get install rsync openssh-client
+             sudo apt-get update -y && sudo apt-get install rsync openssh-client
              eval $(ssh-agent -s)
-             '[[ -f /.dockerenv ]] && echo -e "Host *\\n\\tStrictHostKeyChecking no\\n\\n" > ~/.ssh/config'
-             chmod 400 "$SSH_PRIVATE_KEY"
+             echo -e "Host *\\n\\tStrictHostKeyChecking no\\n\\n" > ~/.ssh/config'
+             sudo chmod 400 oc-P7linux.pem
              cat oc-P7linux.pem
              cat oc-P7linux.pem | ssh-add -
              echo "35.180.190.64" > ~/.ssh/known_hosts
       - name: send the code on remote server
         run: |
-          chmod 600 oc-P7linux.pem
+          sudo chmod 600 oc-P7linux.pem
           rsync -avz -e "ssh -i oc-P7linux.pem" --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploygitlabci            
 
 
