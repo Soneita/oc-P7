@@ -1,0 +1,25 @@
+name: Set up SSH and deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up SSH and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: 35.180.190.64
+          username: ubuntu  # Assurez-vous que le nom d'utilisateur est correct
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /Users/soneitaraherimalala/Desktop/oc-P7/source/P7_script.py
+            
+
+    
+
