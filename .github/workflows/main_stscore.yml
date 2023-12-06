@@ -24,9 +24,14 @@ jobs:
              cat oc-P7linux.pem
              cat oc-P7linux.pem | ssh-add -
              echo "35.180.190.64" > ~/.ssh/known_hosts
-      - name: send the code on remote server
+             
+      - name: deploy code on remote server
         run: |
           sudo chmod 600 oc-P7linux.pem
           rsync -avz -e "ssh -i oc-P7linux.pem" --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploygitlabci            
+
+      - name: launch script
+        run: |
+          ssh  -i oc-P7linux.pem  ubuntu@35.180.190.64 'cd /home/ubuntu/deploygitlabci  && ls -al'
 
 
