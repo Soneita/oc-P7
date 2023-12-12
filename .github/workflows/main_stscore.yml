@@ -33,5 +33,15 @@ jobs:
       - name: launch script
         run: |
           ssh  -i oc-P7linux.pem  ubuntu@35.180.190.64 'cd /home/ubuntu/oc-P7/source  && ls -al'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Assurez-vous d'installer vos dépendances ici
+
+      - name: Run Tests with Pytest
+        run: |
+          pytest test_my_code.py
+
+
 
 
