@@ -40,9 +40,13 @@ jobs:
           ssh -i oc-P7linux.pem ubuntu@35.180.190.64 'python3 -m pip install --upgrade pip'
           ssh -i oc-P7linux.pem ubuntu@35.180.190.64 'python3 -m pip install pytest'
 
+      - name: Install Pytest on remote server
+        run: |
+          ssh -i oc-P7linux.pem ubuntu@35.180.190.64 'python3 -m pip install pytest'
+
       - name: Run Tests with Pytest on remote server
         run: |
-          export PATH=$PATH:/home/ubuntu/.local/bin/pytest
+          
           ssh -i oc-P7linux.pem ubuntu@35.180.190.64 'cd /home/ubuntu/oc-P7/source && pytest test_my_code.py'
 
           
