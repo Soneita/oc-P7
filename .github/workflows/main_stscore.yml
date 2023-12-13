@@ -32,7 +32,7 @@ jobs:
 
       - name: Launch script
         run: |
-          ssh  -i oc-P7linux.pem  ubuntu@35.180.190.64 'cd /home/ubuntu/oc-P7/source  && ls -al'
+          ssh -i oc-P7linux.pem ubuntu@35.180.190.64 'cd /home/ubuntu/oc-P7/source && ls -al'
 
       - name: Install Python dependencies
         run: |
@@ -45,7 +45,8 @@ jobs:
 
       - name: Run Tests with Pytest
         run: |
-          pytest ubuntu@35.180.190.64 'cd /home/ubuntu/oc-P7/source/test_my_code.py
+          ssh -i oc-P7linux.pem ubuntu@35.180.190.64 'cd /home/ubuntu/oc-P7/source && pytest test_my_code.py'
+
 
 
 
