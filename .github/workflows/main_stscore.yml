@@ -1,4 +1,4 @@
-name: Set up SSH and deploy
+name: Set up SSH and Run Tests
 
 on:
   push:
@@ -6,41 +6,47 @@ on:
       - main
 
 jobs:
-  deploy:
+  deploy_and_test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
-      - name: Install the ssh dependencies
+
+      - name: Install SSH dependencies
         run: |
-             mkdir -p ~/.ssh
-             chmod 700 ~/.ssh
-             sudo apt-get update -y && sudo apt-get install rsync openssh-client
-             eval $(ssh-agent -s)
-             echo -e "Host *\\n\\tStrictHostKeyChecking no\\n\\n" > ~/.ssh/config
-             sudo chmod 400 oc-P7linux.pem
-             cat oc-P7linux.pem
-             cat oc-P7linux.pem | ssh-add -
-             echo "35.180.190.64" > ~/.ssh/known_hosts
-             
-      - name: deploy code on remote server
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          sudo apt-get update -y && sudo apt-get install rsync openssh-client
+          eval $(ssh-agent -s)
+          echo -e "Host *\\n\\tStrictHostKeyChecking no\\n\\n" > ~/.ssh/config
+          sudo chmod 400 oc-P7linux.pem
+          cat oc-P7linux.pem
+          cat oc-P7linux.pem | ssh-add -
+          echo "35.180.190.64" > ~/.ssh/known_hosts
+
+      - name: Deploy code on remote server
         run: |
           sudo chmod 600 oc-P7linux.pem
-          rsync -avz -e "ssh -i oc-P7linux.pem" --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploygitlabci            
+          rsync -avz -e "ssh -i oc-P7linux.pem" --exclude '.git/*' --exclude 'node_modules/*' --exclude '.env'  ./ ubuntu@35.180.190.64:/home/ubuntu/deploygitlabci
 
-      - name: launch script
+      - name: Launch script
         run: |
           ssh  -i oc-P7linux.pem  ubuntu@35.180.190.64 'cd /home/ubuntu/oc-P7/source  && ls -al'
-      - name: Install dependencies
+
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Assurez-vous d'installer vos dépendances ici
+          pip install -r requirements.txt
+
+      - name: Install pytest
+        run: |
+          pip install pytest
 
       - name: Run Tests with Pytest
         run: |
           pytest test_my_code.py
+
 
 
 
