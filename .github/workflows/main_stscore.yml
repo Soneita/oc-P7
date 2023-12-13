@@ -34,16 +34,13 @@ jobs:
         run: |
           ssh -i oc-P7linux.pem ubuntu@35.180.190.64 'cd /home/ubuntu/oc-P7/source && ls -al'
 
-      - name: Install Python dependencies
+      - name: Install Python dependencies and pytest on remote server
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          ssh -i oc-P7linux.pem ubuntu@35.180.190.64 'sudo apt-get update && sudo apt-get install -y python3-pip'
+          ssh -i oc-P7linux.pem ubuntu@35.180.190.64 'python3 -m pip install --upgrade pip'
+          ssh -i oc-P7linux.pem ubuntu@35.180.190.64 'python3 -m pip install pytest'
 
-      - name: Install pytest
-        run: |
-          pip install pytest
-
-      - name: Run Tests with Pytest
+      - name: Run Tests with Pytest on remote server
         run: |
           ssh -i oc-P7linux.pem ubuntu@35.180.190.64 'cd /home/ubuntu/oc-P7/source && pytest test_my_code.py'
 
