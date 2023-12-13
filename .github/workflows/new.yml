@@ -1,4 +1,4 @@
-name: Set up SSH and deploy
+name: Deploy to EC2
 
 on:
   push:
@@ -10,15 +10,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up SSH and deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: 35.180.190.64
-          username: ubuntu  # Assurez-vous que le nom d'utilisateur est correct
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            cd /Users/soneitaraherimalala/Desktop/oc-P7/source/P7_script.py
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run API tests
+        run: |
+          mv app/model.txt .
+          mv app/processed_data.csv .
+          pip3 install -r app/requirements.txt
+          python -m unittest tests/test_api.py
+
+      - name: Install SSH key
+        run: |
+          mkdir -p ~/.ssh
+          ls -la ~/.ssh
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/ec2.pem
+          ssh-keyscan ec2-54-210-33-41.compute-1.amazonaws.com >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/ec2.pem
+
+      - name: Transfer code to EC2
+        run: |
+          scp -i ~/.ssh/ec2.pem -r app ubuntu@ec2-54-210-33-41.compute-1.amazonaws.com:~
+
+
+      - name: SSH into EC2 and deploy
+        run: |
+          ssh -i ~/.ssh/ec2.pem -v ubuntu@ec2-54-210-33-41.compute-1.amazonaws.com 'cd ~ && ~/app/deploy_script.sh'
             
 
     
